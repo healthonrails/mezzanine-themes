@@ -3,9 +3,13 @@ from __future__ import unicode_literals
 from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
+from django.views.i18n import set_language
 
 from mezzanine.core.views import direct_to_template
+from mezzanine.conf import settings
 
+# Uncomment to use blog as home page. See also urlpatterns section below.
+# from mezzanine.blog import views as blog_views
 
 admin.autodiscover()
 
@@ -19,8 +23,12 @@ urlpatterns = i18n_patterns(
     url("^admin/", include(admin.site.urls)),
 )
 
-urlpatterns += [
+if settings.USE_MODELTRANSLATION:
+    urlpatterns += [
+        url('^i18n/$', set_language, name='set_language'),
+    ]
 
+urlpatterns += [
     # We don't want to presume how your homepage works, so here are a
     # few patterns you can use to set it up.
 
@@ -45,8 +53,9 @@ urlpatterns += [
     # doesn't apply here, since we can't have a template called
     # "/.html" - so for this case, the template "pages/index.html"
     # should be used if you want to customize the homepage's template.
+    # NOTE: Don't forget to import the view function too!
 
-    # url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
+    # url("^$", mezzanine.pages.views.page, {"slug": "/"}, name="home"),
 
     # HOMEPAGE FOR A BLOG-ONLY SITE
     # -----------------------------
@@ -55,8 +64,9 @@ urlpatterns += [
     # pattern, you'll also need to set BLOG_SLUG = "" in your
     # ``settings.py`` module, and delete the blog page object from the
     # page tree in the admin if it was installed.
+    # NOTE: Don't forget to import the view function too!
 
-    # url("^$", "mezzanine.blog.views.blog_post_list", name="home"),
+    # url("^$", blog_views.blog_post_list, name="home"),
 
     # MEZZANINE'S URLS
     # ----------------
