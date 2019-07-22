@@ -250,6 +250,9 @@ body > section {
 .emerald {
   background-color: #2ecc71;
 }
+.sinaiblue {
+  background: rgba(35,171,225,.75) !important;
+}
 .nephritis {
   background-color: #27ae60;
 }
