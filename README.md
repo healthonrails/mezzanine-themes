@@ -21,6 +21,13 @@ INSTALLED_APPS = (
     ...
 )
 ```
+
+```sh
+python manage.py makemigrations flat
+
+python manage.py migrate
+```
+
 Preview:
 - Moderna:
 ![Moderna](https://cloud.githubusercontent.com/assets/1374633/21468864/5d6c20de-ca34-11e6-8eb3-68094c512155.png)
